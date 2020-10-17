@@ -10,7 +10,7 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-  <title>woshinibaba | Hexo</title>
+  <title>中序遍历 | Hexo</title>
   
     
 <link rel="stylesheet" href="/js/aos/aos.css">
@@ -309,10 +309,10 @@
       
 
 
-<div class="post-detail-header" style="background: url(/medias/11.png) no-repeat; background-size: cover; 
+<div class="post-detail-header" style="background: url(/medias/16.png) no-repeat; background-size: cover; 
   background-position: center center;">
   
-    <span class="title">woshinibaba</span>
+    <span class="title">中序遍历</span>
   
 </div>
 <div class="row justify-center">
@@ -322,7 +322,7 @@
       
       <div class="post-meta">
         <i class="fa fa-clock-o" aria-hidden="true"></i>
-        <span class="post-time">2020-10-17</span>
+        <span class="post-time">2020-10-18</span>
       </div>
       
       <div class="post-tags-categories">
@@ -330,7 +330,28 @@
         
       </div>
       <div class="post-content">
-        
+        <h1 id="树的遍历"><a href="#树的遍历" class="headerlink" title="树的遍历"></a>树的遍历</h1><h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><h3 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h3><p><img src="file://C:/Users/ybj/AppData/Roaming/Typora/typora-user-images/image-20201006202946349.png?lastModify=1601987529" alt="image-20201006202946349"></p>
+<p>前序遍历为：1，2，4，5，3，6，7</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pro</span><span class="params">(node root)</span><span class="comment">// 前序递归 前序遍历：根结点 ---&gt; 左子树 ---&gt; 右子树</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	System.out.print(root.val);<span class="comment">// 当前节点</span></span><br><span class="line">	pro(root.left);</span><br><span class="line">	pro(root.right);</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h3><p>中序遍历为：4，2，5，1，6，3，7</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">mid</span><span class="params">(node root)</span><span class="comment">// 中序递归 中序遍历：左子树 ----&gt;根节点---&gt; 右子树</span></span></span><br><span class="line"><span class="function"></span>&#123;   </span><br><span class="line">	<span class="keyword">if</span> (root == <span class="keyword">null</span>)&#123;	</span><br><span class="line">	    <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">	mid(root.left);</span><br><span class="line">	System.out.print(root.val);<span class="comment">// 当前节点</span></span><br><span class="line">	mid(root.right);</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h3><p>后序遍历：4，5，2，6，7，3，1</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">after</span><span class="params">(node root)</span><span class="comment">// 后序递归 后序遍历：左子树 ---&gt; 右子树---&gt;根节点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	after(root.left);</span><br><span class="line">	after(root.right);</span><br><span class="line">    System.out.print(root.val);<span class="comment">// 当前节点	</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="深度优先遍历非递归（栈）"><a href="#深度优先遍历非递归（栈）" class="headerlink" title="深度优先遍历非递归（栈）"></a>深度优先遍历非递归（栈）</h2><p><img src="C:\Users\ybj\AppData\Roaming\Typora\typora-user-images\image-20201006202946349.png" alt="image-20201006202946349"></p>
+<p>深度优先遍历的顺序是1，2，4，5，3，6，7</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">treeDFS</span><span class="params">(TreeNode root)</span> </span>&#123;<span class="comment">//一层一层的往深处走</span></span><br><span class="line">    Stack&lt;TreeNode&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    stack.add(root);</span><br><span class="line">    <span class="keyword">while</span> (!stack.empty()) &#123;</span><br><span class="line">        <span class="comment">//出栈最外面的一个，则为左子节点</span></span><br><span class="line">        TreeNode node = stack.pop();</span><br><span class="line">        System.out.println(node.val);</span><br><span class="line">        <span class="keyword">if</span> (node.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">            stack.push(node.right);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (node.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">            stack.push(node.left);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="层次遍历（队列）"><a href="#层次遍历（队列）" class="headerlink" title="层次遍历（队列）"></a>层次遍历（队列）</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; levelOrderBottom(TreeNode root) &#123;</span><br><span class="line">        <span class="comment">//创建一个二维动态数组，也是我们返回的数组</span></span><br><span class="line">          List&lt;List&lt;Integer&gt;&gt; arr = <span class="keyword">new</span> ArrayList&lt;List&lt;Integer&gt;&gt;();</span><br><span class="line">          <span class="comment">//创建队列</span></span><br><span class="line">          Queue&lt;TreeNode&gt; queue = <span class="keyword">new</span> LinkedList&lt;TreeNode&gt;();       <span class="comment">//边界情况</span></span><br><span class="line">          <span class="keyword">if</span>(root == <span class="keyword">null</span>)&#123;</span><br><span class="line">              <span class="keyword">return</span> arr;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="comment">//将root节点存进去，这一步很重要，不然会一直输出空</span></span><br><span class="line">          queue.offer(root);</span><br><span class="line">          <span class="comment">//执行完毕条件</span></span><br><span class="line">          <span class="keyword">while</span>(!queue.isEmpty())&#123;</span><br><span class="line">              <span class="comment">//构建一个一维动态数组，这个用来存储每层的遍历结果</span></span><br><span class="line">              List&lt;Integer&gt; array = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">              <span class="comment">//获得当前队列的大小，这里记住要用一个变量接收，因为队列的大小是会改变的</span></span><br><span class="line">              <span class="keyword">int</span> size = queue.size();</span><br><span class="line">              <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; size ;i++)&#123;</span><br><span class="line">                    <span class="comment">//队列出列</span></span><br><span class="line">                     TreeNode p = queue.poll();</span><br><span class="line">                     <span class="comment">//将出列的节点的值，存入一维数组中</span></span><br><span class="line">                     array.add(p.val);</span><br><span class="line">                     <span class="comment">//左孩子和右孩子</span></span><br><span class="line">                     TreeNode left = p.left;</span><br><span class="line">                     TreeNode right =p.right;   </span><br><span class="line">                     <span class="comment">//将左右孩子入队               </span></span><br><span class="line">                     <span class="keyword">if</span>(p.left!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                         queue.offer(left);</span><br><span class="line">                     &#125;</span><br><span class="line">                     <span class="keyword">if</span>(p.right!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                         queue.offer(right);</span><br><span class="line">                     &#125;</span><br><span class="line">              &#125;</span><br><span class="line">              arr.add(array);</span><br><span class="line">          &#125;</span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个代码会将节点分层显示，如果想一行显示，可以创建一维的动态数组，入队出队即可。</p>
+
       </div>
       
         <div class="copyright">
@@ -340,7 +361,7 @@
     </li>
     <li class="post-copyright-link">
     <strong>文章链接:  </strong>
-    <a href="/2020/10/17/woshinibaba/" target="_blank" title="woshinibaba">https://github.com/tan45du/tan45du.github.io.git/2020/10/17/woshinibaba/</a>
+    <a href="/2020/10/18/中序遍历/" target="_blank" title="中序遍历">https://github.com/tan45du/tan45du.github.io.git/2020/10/18/中序遍历/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明:   </strong>
@@ -355,17 +376,11 @@
     
       <div class="post-nav">
 
-  <div class="post-nav-prev post-nav-item">
-    <a href="/2020/10/17/2.%E8%AF%A5%E5%A6%82%E4%BD%95%E7%A7%BB%E9%99%A4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0%EF%BC%9F/">
-      上一篇:    
-    </a>
-  </div>
-
 
 
   <div class="post-nav-next post-nav-item">
-    <a href="/2020/10/17/%E6%88%91%E6%98%AFi%E7%88%B8%E7%88%B8/">
-      下一篇:    我是i爸爸 
+    <a href="/2020/10/17/2.%E8%AF%A5%E5%A6%82%E4%BD%95%E7%A7%BB%E9%99%A4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0%EF%BC%9F/">
+      下一篇:     
     </a>
   </div>
 
