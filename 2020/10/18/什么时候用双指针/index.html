@@ -1,0 +1,611 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="大家搜索微信公众号：程序员爱做饭关注我吧">
+  <meta name="author" content="程序员爱做饭">
+  <meta name="keywords" content="">
+  <title>什么时候用双指针 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-18 19:18" pubdate>
+        2020年10月18日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">什么时候用双指针</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h1 id="题目总结"><a href="#题目总结" class="headerlink" title="题目总结"></a>题目总结</h1><h2 id="双指针思想"><a href="#双指针思想" class="headerlink" title="双指针思想"></a>双指针思想</h2><p>双指针是我们做题中经常用到的思想，所以这个在刷题初期是一定要会的。其实我们早就学习过这个方法，我们通过二分查找来描述一下这个思想。</p>
+<p>二分查找首先定义两个指针，左指针和右指针，分别指向数组的头和尾，然后计算出他俩的中间的索引，其值和目标值进行比较，如果目标值更大则说明目标值在中间索引和右指针中间，则需要移动左指针到中间索引的后一位。如果目标值比中间值小，则需要移动右指针到中间索引的前一位。不断执行，直至找到目标值，或当该数组不含有目标值，左指针和右指针重合时跳出该循环。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200918155508227.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RhbjQ1ZHVfeXVhbg==,size_16,color_FFFFFF,t_70#pic_center" srcset="/img/loading.gif" alt="有序数组的二分查找"></p>
+<p>二分查找代码</p>
+<pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">halfnum</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] arraynum ,<span class="hljs-keyword">int</span> b)</span></span>&#123;
+           <span class="hljs-keyword">int</span> hi =arraynum.length-<span class="hljs-number">1</span>;
+           <span class="hljs-keyword">int</span> lo = <span class="hljs-number">0</span>;
+           <span class="hljs-comment">//先判断数组是不是空</span>
+           <span class="hljs-keyword">if</span> (arraynum.length==<span class="hljs-number">0</span>)&#123;
+               <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+           &#125;            
+           <span class="hljs-keyword">while</span>(hi&gt;=lo)&#123;
+                <span class="hljs-comment">//判断是否等于要猜的数</span>
+               <span class="hljs-keyword">if</span>(b==arraynum[(hi+lo)/<span class="hljs-number">2</span>])&#123;
+                   <span class="hljs-keyword">return</span> (hi+lo)/<span class="hljs-number">2</span>;
+               &#125;
+               <span class="hljs-comment">//大于中间数的情况</span>
+               <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (b&gt;arraynum[(hi+lo)/<span class="hljs-number">2</span>])&#123;
+                   lo= (hi+lo)/<span class="hljs-number">2</span>+<span class="hljs-number">1</span>;
+               &#125;
+               <span class="hljs-comment">//小于中间数的情况</span>
+               <span class="hljs-keyword">else</span>&#123;
+                   hi=(hi+lo)/<span class="hljs-number">2</span>-<span class="hljs-number">1</span>;
+               &#125;
+           &#125;
+          <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+       &#125;</code></pre>
+
+
+
+<h3 id="35-搜索插入位置"><a href="#35-搜索插入位置" class="headerlink" title="35.搜索插入位置"></a>35.搜索插入位置</h3><blockquote>
+<p>给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。你可以假设数组中无重复元素。</p>
+</blockquote>
+<p><strong>示例 1:</strong></p>
+<pre><code class="hljs angelscript">输入: [<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>], <span class="hljs-number">5</span>
+输出: <span class="hljs-number">2</span></code></pre>
+
+<p><strong>示例 2:</strong></p>
+<pre><code class="hljs angelscript">输入: [<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>], <span class="hljs-number">2</span>
+输出: <span class="hljs-number">1</span></code></pre>
+
+
+<p><strong>示例 3:</strong></p>
+<pre><code class="hljs angelscript">输入: [<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>], <span class="hljs-number">7</span>
+输出: <span class="hljs-number">4</span></code></pre>
+
+<p><strong>示例 4:</strong></p>
+<pre><code class="hljs angelscript">输入: [<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>], <span class="hljs-number">0</span>
+输出: <span class="hljs-number">0</span></code></pre>
+
+<p>题目很好理解，但是我们想要一次AC是不太容易的。我们根据题意可以想到，这样共有四种可能</p>
+<p><img src="https://img-blog.csdnimg.cn/20201012144857163.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3RhbjQ1ZHVfeXVhbg==,size_16,color_FFFFFF,t_70#pic_center" srcset="/img/loading.gif" alt="在这里插入图片描述"></p>
+<p>插入情况无非就这几种</p>
+<p>（1）比数组里的任何值都小，插入头部</p>
+<p>（2）比数组里的任何值都大，插入尾部</p>
+<p>（3）查询到数组元素，返回该处索引值</p>
+<p>（4）数组内无该元素，将其插入两元素之间。</p>
+<p>所以我们可以通过以下代码实现该题</p>
+<pre><code class="hljs angelscript"><span class="hljs-keyword">class</span> <span class="hljs-symbol">Solution</span> &#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> searchInsert(<span class="hljs-built_in">int</span>[] nums, <span class="hljs-built_in">int</span> target) &#123;
+        <span class="hljs-built_in">int</span> left = <span class="hljs-number">0</span>, right = nums.length - <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">while</span>(left &lt;= right) &#123;
+            <span class="hljs-comment">//中间值，与target对比</span>
+            <span class="hljs-built_in">int</span> mid = (left + right) / <span class="hljs-number">2</span>;
+            <span class="hljs-comment">//第三种情况</span>
+            <span class="hljs-keyword">if</span>(nums[mid] == target) &#123;
+                <span class="hljs-keyword">return</span> mid;
+            <span class="hljs-comment">//移动左指针</span>
+            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(nums[mid] &lt; target) &#123;
+                left = mid + <span class="hljs-number">1</span>;
+            &#125; <span class="hljs-keyword">else</span> &#123;
+                <span class="hljs-comment">//移动右指针</span>
+                right = mid - <span class="hljs-number">1</span>;
+            &#125;
+        &#125;
+        <span class="hljs-comment">//1，2，4三种情况都在循环内部，我们只需输出左指针即可。</span>
+        <span class="hljs-keyword">return</span> left;
+    &#125;
+&#125;</code></pre>
+
+<hr>
+<p>刚才我们说了双指针思想的重要性，下面这个题目也是可以完全通过双指针思想实现的，所以说双指针的思想是必须有的。你可以通过下面这个题目完全体会到双指针的重要性</p>
+<h3 id="27-移除元素"><a href="#27-移除元素" class="headerlink" title="27.移除元素"></a>27.移除元素</h3><blockquote>
+<p>给你一个数组 nums 和一个值 val，你需要 原地 移除所有数值等于 val 的元素，并返回移除后数组的新长度。</p>
+<p>不要使用额外的数组空间，你必须仅使用 O(1) 额外空间并 原地 修改输入数组。</p>
+<p>元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。</p>
+</blockquote>
+<p>示例 1:</p>
+<pre><code class="hljs angelscript">给定 nums = [<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>], val = <span class="hljs-number">3</span>,</code></pre>
+
+<p>函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。</p>
+<p>你不需要考虑数组中超出新长度后面的元素。</p>
+<p>示例 2:</p>
+<pre><code class="hljs angelscript">给定 nums = [<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">0</span>,<span class="hljs-number">4</span>,<span class="hljs-number">2</span>], val = <span class="hljs-number">2</span>,</code></pre>
+
+<p>函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4。</p>
+<p>注意这五个元素可为任意顺序。</p>
+<p>你不需要考虑数组中超出新长度后面的元素。</p>
+<p>该题目我们可以创建两个指针，一前一后，前面的负责探路后面的负责填充，当前面查询到需要移除的元素时直接跳过该元素，继续前进。后面的指针只负责往该数组里面填充不需要移除的数字。所以我们可以根据以下代码实现</p>
+<pre><code class="hljs angelscript"><span class="hljs-keyword">class</span> <span class="hljs-symbol">Solution</span> &#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> removeElement(<span class="hljs-built_in">int</span>[] nums, <span class="hljs-built_in">int</span> val) &#123;
+    <span class="hljs-comment">//特殊情况</span>
+      <span class="hljs-keyword">if</span>(nums==<span class="hljs-literal">null</span>)&#123;
+          <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+      &#125;     
+      <span class="hljs-built_in">int</span> j = <span class="hljs-number">0</span>;<span class="hljs-comment">//慢指针，i代表快指针</span>
+      <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>;i&lt;nums.length;i++)&#123;
+         <span class="hljs-comment">//正常情况直接赋值给i          </span>
+          <span class="hljs-keyword">if</span>(nums[i]!=val)&#123;
+              nums[j]=nums[i];
+              j++;
+          &#125;
+          <span class="hljs-comment">//如果为需要删除的值时，则快指针移动，慢指针不动。</span>
+      &#125;
+       <span class="hljs-keyword">return</span> j;
+    &#125;
+&#125;</code></pre>
+
+<hr>
+<p>刚才我们学习了两个双指针的题目，是不是对这个做题思想有了一些理解了，下面我们来使用一个更加高级的双指针，这个也是经常使用的思想，但是归根结底还是双指针思想。</p>
+<p>该题目的思想也是双指针的思想，不过这个代码比较难写一些，用到的情况也是比较多的，所以我们这个题目要用心体会一下。</p>
+<h3 id="209，长度最小的子数组"><a href="#209，长度最小的子数组" class="headerlink" title="209，长度最小的子数组"></a>209，长度最小的子数组</h3><blockquote>
+<p>给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中满足其和 ≥ s 的长度最小的 连续 子数组，并返回其长度。如果不存在符合条件的子数组，返回 0。 </p>
+</blockquote>
+<p>示例：</p>
+<pre><code class="hljs angelscript">输入：s = <span class="hljs-number">7</span>, nums = [<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">3</span>]
+输出：<span class="hljs-number">2</span>
+解释：子数组 [<span class="hljs-number">4</span>,<span class="hljs-number">3</span>] 是该条件下的长度最小的子数组</code></pre>
+
+<p>题目含义比较好理解，则是在数组里面找出长度最小的子数组，子数组的元素和大于等于目标值。这个题目我们就用到了滑动窗口的思想。</p>
+<p>滑动窗口：<strong>就是通过不断调节子数组的起始位置和终止位置，进而得到我们想要的结果</strong>我们也可以看成是双指针的一种。</p>
+<p>在该题中，我们可能遇到这种情况 大家思考一下，数组的值是1，2，3，4，5我们的s为5，所以我们第一次的子数组（滑动窗口）长度则为3，1+2+3&gt;5,这时左指针在1的位置，右指针在3的位置，但是2+3=5同样符合，所以我们就需要移动左指针，此时窗口长度则改为2了。然后我们保留该值，继续移动左指针，判断3是否仍符合，此时发现不符合了，则需要移动右指针，移动到下一个符合情况的元素，继续执行刚才的步骤，直到数组的最后。所以整个过程中滑动窗口的长度变化为，3,2,3,2,3,2,1，最小的则为1.</p>
+<p>我们可以通过以下代码解决该题。</p>
+<pre><code class="hljs angelscript"><span class="hljs-keyword">class</span> <span class="hljs-symbol">Solution</span> &#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">int</span> minSubArrayLen(<span class="hljs-built_in">int</span> s, <span class="hljs-built_in">int</span>[] nums) &#123;
+        <span class="hljs-built_in">int</span> chiledlen = Integer.MAX_VALUE;
+        <span class="hljs-built_in">int</span> winlen = <span class="hljs-number">0</span>;<span class="hljs-comment">//窗口大小</span>
+        <span class="hljs-built_in">int</span> sum = <span class="hljs-number">0</span>;
+        <span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>;<span class="hljs-comment">//起始长度位置</span>
+        <span class="hljs-keyword">for</span>(<span class="hljs-built_in">int</span> j = <span class="hljs-number">0</span> ; j &lt; nums.length;j++)&#123;
+              sum += nums[j];
+              <span class="hljs-comment">//发现符合条件的情况</span>
+              <span class="hljs-comment">//循环内部的代码是精髓所在</span>
+              <span class="hljs-keyword">while</span>(sum&gt;=s)&#123;
+                  winlen = j-i+<span class="hljs-number">1</span>;
+                  chiledlen = Math.min(chiledlen,winlen);
+                  <span class="hljs-comment">//下面两行是滑动窗口的意义所在，改变起点位置，判断是否仍符合条件</span>
+                  sum-=nums[i];
+                  i++;
+              &#125;
+
+        &#125;
+        <span class="hljs-keyword">return</span> chiledlen == Integer.MAX_VALUE ? <span class="hljs-number">0</span>:chiledlen;
+    &#125;
+&#125;</code></pre>
+
+<p>通过以上三个题目我们是不是对双指针思想有了一些理解了，该思想不仅可以用在数组的题目上，链表同样适用。所以我们要完全掌握，这三个题目大家有时间的话还是自己动手做一下。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "什么时候用双指针&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
